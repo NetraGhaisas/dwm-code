@@ -1,0 +1,147 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+attach(mtcars)
+mtcars
+```
+
+
+```{r}
+plot(x = wt,y = mpg,
+   xlab = "Weight",
+   ylab = "Milage",
+   xlim = c(1.5,4.5),
+   ylim = c(12,35),		 
+   main = "Weight vs Milage",abline(lm(mpg~wt)))
+```
+
+
+```{r}
+r1 <- c(7,12,28,3,41)
+r2 <- c(14,7,6,19,3)
+plot(r1,type = "b",col = "red",xlab = "Months", ylab = "Rainfall",main = "Rainfall line chart",pch=19, lty=2)
+lines(r2, type = "b", col = "blue",pch=23,lty=6)
+```
+
+
+```{r}
+plot(density(mtcars$mpg),main='Density plot of MPG',xlab='MPG',col='green')
+```
+
+
+```{r}
+hist(qsec,col="orange",border="red")
+```
+```{r}
+pairs(~wt+mpg+disp+cyl+qsec,data = mtcars, main = "Scatter Plot Matrix")
+```
+
+
+```{r}
+freq <- table(mtcars$gear)
+labs<-paste(names(freq), "\n", freq, sep="")
+pie(freq,main="Pie chart for gear", labels=labs, clockwise=T)
+```
+
+
+```{r}
+boxplot(mpg~gear, data = mtcars, xlab = "Gears", ylab = "Miles Per Gallon", main = "Mileage Data")
+```
+
+
+```{r}
+boxplot(mpg~gear, data = mtcars, xlab = "Gears", ylab = "Miles Per Gallon", main = "Mileage Data",notch=T,varwidth=T,col=c("red","blue","orange"))
+```
+```{r}
+freq <- table(mtcars$gear)
+barplot(freq,main="No. of cars per gear",xlab="No. of gears",ylab="Frequency")
+```
+
+
+```{r}
+freq <- table(mtcars$gear)
+freq
+barplot(freq,main="No. of cars per gear",sub="From mtcars dataset",xlab="No. of gears",ylab="Frequency",horiz=TRUE,names.arg=c("3 gears","4 gears","5 gears"))
+```
+
+
+```{r}
+freq <- table(mtcars$vs,mtcars$gear)
+freq
+barplot(freq,main="Car distribution by gear and vs",sub="From mtcars dataset",xlab="No. of gears",ylab="Frequency",col=c("purple","orange"),legend=rownames(freq))
+```
+
+
+```{r}
+freq <- table(mtcars$vs,mtcars$gear)
+barplot(freq,main="Car distribution by gear and vs",sub="From mtcars dataset",xlab="No. of gears",ylab="Frequency",col=c("purple","orange"),legend=rownames(freq),beside=TRUE)
+```
+
+
+```{r}
+freq <- table(mtcars$gear)
+barplot(freq,main="No. of cars per gear",sub="From mtcars dataset",xlab="No. of gears",ylab="Frequency",col="purple")
+```
+
+
+```{r}
+library(ggplot2)
+diamonds
+ggplot(diamonds, aes(x=carat,y=price)) + geom_point(color="blue", shape=5) + ggtitle("Carats vs. Price",subtitle="Scatter plot")
+```
+```{r}
+ggplot(mtcars, aes(x=mpg,y=wt)) + geom_point(color="orange", shape=10,size=9) + ggtitle("Weight vs. Miles per Gallon") + geom_text(label=rownames(mtcars))
+```
+```{r}
+ggplot(mtcars,aes(x=qsec)) + geom_histogram(stat="bin",bins=30,fill="green",color="blue") + ggtitle("qsec frequency",subtitle="Histogram")
+```
+```{r}
+ggplot(mtcars,aes(x=gear)) + geom_histogram(stat="bin",bins=3,fill="purple",color="red") + ggtitle("Gear frequency graph")
+```
+
+
+```{r}
+ggplot(mtcars,aes(y=mpg)) + geom_bar(color="red",fill="blue") + ggtitle("Horizontal bar plot")
+```
+```{r}
+ggplot(mtcars,aes(x=mpg)) + geom_density(kernel="gaussian",color="black",fill="white")
+```
+```{r}
+ggplot(mtcars,aes(x=mpg,y=wt)) + geom_area(color="black",fill="blue")
+```
+
+
+```{r}
+ggplot(iris,aes(Sepal.Length,Petal.Length,color=Species)) + geom_jitter()
+```
+
+
+```{r}
+ggplot(diamonds, aes(x, y)) + xlim(4, 10) + ylim(4, 10) + geom_bin2d()
+```
+```{r}
+ggplot(iris,aes(x=Species,y=Petal.Length)) + geom_boxplot(outlier.color = "orange",outlier.shape = 4,outlier.size = 3)
+```
+```{r}
+ggplot(mtcars, aes(factor(gear),mpg)) +  geom_violin()
+```
+
+
+```{r}
+library(ggvis)
+attach(mtcars)
+mtcars
+mtcars %>% ggvis(~wt,~mpg) %>% layer_points()
+p <- ggvis(mtcars, x = ~wt, y = ~mpg)
+layer_points(p)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
